@@ -1,0 +1,262 @@
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>User Ajax Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+
+  </head>
+  <body>
+<div class="container">
+  <nav class="navbar navbar-light bg-white justify-content-around" style="margin-bottom: 10px;">
+  <a class="navbar-brand"></a>
+  <form id="infomoney" action="/get_infomoney" method="post">
+  {% csrf_token %}
+    <input id="user_input" name="user_input" type="hidden" value="">
+    <input type="submit" value="Infomoney" class="btn btn-outline-dark">
+</form>
+
+<form id="valor" action="/get_valor" method="post">
+  {% csrf_token %}
+    <input id="user_input" name="user_input" type="hidden" value="">
+    <input type="submit" value="Valor" class="btn btn-outline-dark">
+</form>
+
+
+<form id="g1" action="/get_g1" method="post">
+  {% csrf_token %}
+    <input id="user_input" name="user_input" type="hidden" value="">
+    <input type="submit" value="G1" class="btn btn-outline-dark">
+</form>
+
+
+<form id="estadao" action="/get_estadao" method="post">
+  {% csrf_token %}
+    <input id="user_input" name="user_input" type="hidden" value="">
+    <input type="submit" value="Estadao" class="btn btn-outline-dark">
+</form>
+
+
+<form id="todos" action="/get_all" method="get">
+  {% csrf_token %}
+    <input id="user_input" name="user_input" type="hidden" value="">
+</form>
+
+
+</nav>
+</div>
+
+
+<div class="container">
+  <nav class="navbar navbar-light bg-white justify-content-center" style="margin-bottom: 10px;">
+  <a class="navbar-brand"></a>
+  <form class="form-inline" id="search" action="/get_search" method="get">
+      {% csrf_token %}
+    <input class="form-control mr-sm-2" type="search" placeholder="Pesquise um tópico!" aria-label="Search" id="search_box" name="search_box">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+  </form>
+</nav>
+</div>
+
+<div class="container-fluid" id="results"></div>
+
+
+
+
+
+
+<script>
+
+
+
+
+$(document).ready(
+     function( ) {
+        $('#search').submit(
+            function( ) {
+                console.log("loading.........")
+                // load up any gif you want, this will be shown while user is waiting for response
+                $.post(
+                    $(this).attr('action'),
+                    $(this).serialize( ),
+                    function(res) {
+                      $("#results").html("<h1> Ready......! </h1>")
+                        console.log('the response object:');
+                        console.log(res);
+                        $("#results").html("")                        
+                        for(i=0; i<25; i++){
+                          $("#results").append('<div class="container rouded"> <p class="text-primary"> <span class="text-secondary font-weight-light">'+ res[i].fields.created_at.slice(11, 19) + '</span> '+ res[i].fields.content + '</p> <p class="font-weight-light text-secondary">'+res[i].fields.newspaper + ' </p> <hr> </div>');
+                        }
+                    },
+                    'json'
+                );
+                // don't forget this 'false' -- without it, the 'submit' cycle will continue, and the page will refresh
+                return false;
+            }
+        );
+    }
+);   
+
+
+$(document).ready(
+    function( ) {
+        $('#infomoney').submit(
+            function( ) {
+                console.log("loading.........")
+                // load up any gif you want, this will be shown while user is waiting for response
+                $.post(
+                    $(this).attr('action'),
+                    $(this).serialize( ),
+                    function(res) {
+                      $("#results").html("<h1> Ready......! </h1>")
+                        console.log('the response object:');
+                        console.log(res);
+                        $("#results").html("")                        
+                        for(i=0; i<25; i++){
+                          $("#results").append('<div class="container rouded"> <p class="text-primary"> <span class="text-secondary font-weight-light">'+ res[i].fields.created_at.slice(11, 19) + '</span> '+ res[i].fields.content + '</p> <p class="font-weight-light text-secondary">'+res[i].fields.newspaper + ' </p> <hr> </div>');
+                        }
+                    },
+                    'json'
+                );
+                // don't forget this 'false' -- without it, the 'submit' cycle will continue, and the page will refresh
+                return false;
+            }
+        );
+    }
+);
+
+$(document).ready(
+     function( ) {
+        $('#valor').submit(
+            function( ) {
+                console.log("loading.........")
+                // load up any gif you want, this will be shown while user is waiting for response
+                $.post(
+                    $(this).attr('action'),
+                    $(this).serialize( ),
+                    function(res) {
+                      $("#results").html("<h1> Ready......! </h1>")
+                        console.log('the response object:');
+                        console.log(res);
+                        $("#results").html("")                        
+                        for(i=0; i<25; i++){
+                          $("#results").append('<div class="container rouded"> <p class="text-primary"> <span class="text-secondary font-weight-light">'+ res[i].fields.created_at.slice(11, 19) + '</span> '+ res[i].fields.content + '</p> <p class="font-weight-light text-secondary">'+res[i].fields.newspaper + ' </p> <hr> </div>');
+                        }
+                    },
+                    'json'
+                );
+                // don't forget this 'false' -- without it, the 'submit' cycle will continue, and the page will refresh
+                return false;
+            }
+        );
+    }
+);
+
+
+$(document).ready(
+     function( ) {
+        $('#g1').submit(
+            function( ) {
+                console.log("loading.........")
+                // load up any gif you want, this will be shown while user is waiting for response
+                $.post(
+                    $(this).attr('action'),
+                    $(this).serialize( ),
+                    function(res) {
+                      $("#results").html("<h1> Ready......! </h1>")
+                        console.log('the response object:');
+                        console.log(res);
+                        $("#results").html("")                        
+                        for(i=0; i<25; i++){
+                          $("#results").append('<div class="container rouded"> <p class="text-primary"> <span class="text-secondary font-weight-light">'+ res[i].fields.created_at.slice(11, 19) + '</span> '+ res[i].fields.content + '</p> <p class="font-weight-light text-secondary">'+res[i].fields.newspaper + ' </p> <hr> </div>');
+                        }
+                    },
+                    'json'
+                );
+                // don't forget this 'false' -- without it, the 'submit' cycle will continue, and the page will refresh
+                return false;
+            }
+        );
+    }
+);
+
+$(document).ready(
+     function( ) {
+        $('#estadao').submit(
+            function( ) {
+                console.log("loading.........")
+                // load up any gif you want, this will be shown while user is waiting for response
+                $.post(
+                    $(this).attr('action'),
+                    $(this).serialize( ),
+                    function(res) {
+                      $("#results").html("<h1> Ready......! </h1>")
+                        console.log('the response object:');
+                        console.log(res);
+                        $("#results").html("")                        
+                        for(i=0; i<25; i++){
+                          $("#results").append('<div class="container rouded"> <p class="text-primary"> <span class="text-secondary font-weight-light">'+ res[i].fields.created_at.slice(11, 19) + '</span> '+ res[i].fields.content + '</p> <p class="font-weight-light text-secondary">'+res[i].fields.newspaper + ' </p> <hr> </div>');
+                        }
+                    },
+                    'json'
+                );
+                // don't forget this 'false' -- without it, the 'submit' cycle will continue, and the page will refresh
+                return false;
+            }
+        );
+    }
+);
+
+
+
+$(document).ready(
+    function( ) {
+        $('#todos').submit(
+             function( ) {
+                console.log("loading.........")
+                $("#results").html("<h1> Loading...... </h1>")
+                // load up any gif you want, this will be shown while user is waiting for response
+                $.post(
+                    $(this).attr('action'),
+                    $(this).serialize( ),
+                    function(res) {
+                      $("#results").html("<h1> Ready......! </h1>")
+                        console.log('the response object:');
+                        console.log(res);
+                    },
+                    'json'
+                );
+                // don't forget this 'false' -- without it, the 'submit' cycle will continue, and the page will refresh
+                return false;
+            }
+        );
+    },
+);
+
+
+setInterval(function( ) {
+                console.log("loading.........")
+                // load up any gif you want, this will be shown while user is waiting for response
+                $.post(
+                    $('#todos').attr('action'),
+                    $('#todos').serialize( ),
+                    function(res) {
+                      $("#results").html("<h1> Ready......! </h1>")
+                        console.log('the response object:');
+                        console.log(res);
+                      $("#results").html("")                        
+                        for(i=0; i<25; i++){
+                          var time = new Date().toLocaleTimeString();
+                          $("#results").append('<div class="container rouded"> <p class="text-primary"> <span class="text-secondary font-weight-light">'+ res[i].fields.created_at.slice(11, 19) + '</span> '+ res[i].fields.content + '</p> <p class="font-weight-light text-secondary">'+res[i].fields.newspaper + ' </p> <hr> </div>');
+                        }
+                    },
+                    'json'
+                );
+                // don't forget this 'false' -- without it, the 'submit' cycle will continue, and the page will refresh
+                return false;
+            },10000);
+
+
+</script>
